@@ -2,21 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const paths = ["app/src/App.tsx","app/data/featuredWidgets.js","app/data/discountinuedWidgets.js","app/style.css","app/data/clearanceWidgets.js","app/src/WidgetList/Widget.tsx","app/src/WidgetList/WidgetList.tsx","app/index.html"];
+
+  let result = [];
+  let level = {result};
+
+  paths.forEach((path) => {
+    path.split("/").reduce((acc, name) => {
+      if (!acc[name]) {
+        acc[name] = {result: []};
+        acc.result.push({name, children: acc[name].result});
+      }
+
+      return acc[name]
+    }, level)
+  });
+
+  
+console.log(result)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="">
+        {result.map(r => {
+
+          return r.name
+        })}
       </header>
     </div>
   );
